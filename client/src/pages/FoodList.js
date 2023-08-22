@@ -48,11 +48,11 @@ const FoodList = () => {
 				setDrinksLoading(false);
 			});
 	};
-
+// refreshed with every token
 	useEffect(() => {
 		loadMeals();
 		loadDrinks();
-	}, []);
+	}, [token]);
 
 	return (
 		<StyledContainer>
