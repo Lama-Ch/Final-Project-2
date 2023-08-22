@@ -1,9 +1,37 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
+import { getCurrentUserService } from '../apis/authApi';
+import {removeStoreAuthToken, getStoredAuthToken} from "../utils/localStorage";
 
 const NavBar = () => {
-	const { user, logout } = useAuth();
+	const { user, logout, setUserLoggedIn } = useAuth();
+
+	const loadCurrentUser = (token) => {
+		getCurrentUserService(token)
+			.then((response) => {
+				if (response.ok) {
+					response.json().then((data) => {
+						setUserLoggedIn(data.user, token);
+					});
+				}
+			})
+			.catch();
+	};
+
+	const onLogoutUser = () => {
+		removeStoreAuthToken();
+		logout();
+	};
+
+	useEffect(() => {
+		// When the APP loads, check if there's any authToken and then load that user data
+		const token = getStoredAuthToken();
+		if (token) {
+			loadCurrentUser(token);
+		}
+	}, []);
 
 	return (
 		<NavbarWrapper>
@@ -19,7 +47,7 @@ const NavBar = () => {
 				{user ? (
 					<>
 						<LoggedInUserName>Hi, {user.fullname}</LoggedInUserName>
-						<LogoutButton onClick={logout}>Logout</LogoutButton>
+						<LogoutButton onClick={onLogoutUser}>Logout</LogoutButton>
 					</>
 				) : (
 					<NavItem to='/signin'>Sign In</NavItem>
