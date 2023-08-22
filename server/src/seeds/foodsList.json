@@ -1,0 +1,44 @@
+[
+	{
+		"name": "Classic Burger",
+		"description": "Juicy beef patty with lettuce, tomato, cheese, and special sauce.",
+		"price": 9.99,
+		"foodType": "meal",
+		"isVegetarian": false
+	},
+	{
+		"name": "Margherita Pizza",
+		"description": "Thin crust pizza with tomato sauce, mozzarella cheese, and fresh basil.",
+		"price": 12.5,
+		"foodType": "meal",
+		"isVegetarian": true
+	},
+	{
+		"name": "Caesar Salad",
+		"description": "Crispy romaine lettuce with Caesar dressing, croutons, and parmesan cheese.",
+		"price": 8.75,
+		"foodType": "meal",
+		"isVegetarian": true
+	},
+	{
+		"name": "Berry Blast Smoothie",
+		"description": "Blend of mixed berries, yogurt, and honey for a refreshing treat.",
+		"price": 5.5,
+		"foodType": "drink",
+		"isVegetarian": true
+	},
+	{
+		"name": "Espresso",
+		"description": "Strong and concentrated coffee shot, perfect for a quick pick-me-up.",
+		"price": 3.25,
+		"foodType": "drink",
+		"isVegetarian": true
+	},
+	{
+		"name": "Chocolate Brownie",
+		"description": "Rich chocolate brownie served warm with a scoop of vanilla ice cream.",
+		"price": 6.99,
+		"foodType": "meal",
+		"isVegetarian": true
+	}
+]
