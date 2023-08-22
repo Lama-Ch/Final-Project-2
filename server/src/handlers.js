@@ -79,6 +79,30 @@ exports.signin = (req, res) => {
 };
 
 
+exports.getCurrentUser = (req, res) => {
+	const authUserId = req.authUserId;
+	User.findById(authUserId)
+	.then((user) => {
+		if (!user) {
+			// For security reason, don't expose that the user isn't found
+			return res
+				.status(401)
+				.json({ error: 'This user does not exists in the system' });
+		}
+		// Remove the password from user data
+		const userData = {
+			id: user._id,
+			fullname: user.fullname,
+			username: user.username,
+			email: user.email,
+		};
+		res.json({ user: userData });
+	})
+	.catch((err) => {
+		return res.status(500).json({ error: err.message });
+	});
+};
+
 // Sign up controller
 exports.postNewFood = (req, res) => {
 	const { name, description, foodType, isVegetarian, price } = req.body;
