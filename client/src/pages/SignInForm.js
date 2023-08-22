@@ -6,7 +6,7 @@ import FormSuccess from '../components/forms/FormSuccess';
 import { signUpService, singInService } from '../apis/authApi';
 import { useAuth } from '../context/AuthContext';
 import { EMAILREGEX } from '../utils/constants';
-
+import { saveAuthToken } from '../utils/localStorage';
 const SignInForm = () => {
 	// Use the useAuth hook to save user login state in context
 	const { setUserLoggedIn } = useAuth();
@@ -89,13 +89,14 @@ const SignInForm = () => {
 						console.log('User Success::', data);
 						// Save the access token locally and return to home page back
 						setUserLoggedIn(data.user, data.token);
+						saveAuthToken(data.token);	
 						navigate('/');
 					});
 				} else {
 					response.json().then((errorData) => {
 						console.error('Signin failed::', errorData);
 						setIsFormSubmitting(false);
-						setErrorMessage(errorData.message);
+						setErrorMessage(errorData.error);
 					});
 				}
 			})
@@ -103,6 +104,7 @@ const SignInForm = () => {
 				console.error('Signin Error::', error);
 				setIsFormSubmitting(false);
 				setErrorMessage('There was an erro with your singin request.');
+
 			});
 	};
 
