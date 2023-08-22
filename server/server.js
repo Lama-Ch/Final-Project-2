@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8000;
 require("./src/configs/dbClient")
   // Allow all origins (for development; restrict in production)
   app.use(cors())
+  //garenteed access
   .use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "DELETE, PUT, GET, POST");
@@ -25,33 +26,24 @@ require("./src/configs/dbClient")
   })
   .use(express.json())
 
-  // Auth routes
+  // Auth 
   .post("/api/auth/signup", handlers.signup)
   .post("/api/auth/signin", handlers.signin)
-
+  // Auth each token exists , fetch the user by id and send it to the front end
+  .get('/api/auth/current-user', authMiddleware, handlers.getCurrentUser)
+ 
   // My Foods CRUD operations
   .post("/api/foods", authMiddleware, handlers.postNewFood)
-  .get(
-    "/foods/my-listings/:foodType",
-    authMiddleware,
-    handlers.getMyListedFoods
-  )
+  .get("/api/foods/my-listings/:foodType",authMiddleware,handlers.getMyListedFoods)
 
   // Get Foods Listing and Food Detail
-  .get(
-    "/api/foods/others-listing/:foodType",
-    optionalAuthMiddleware,
-    handlers.getFoodsList
-  )
-  .get(
-    "/api/foods/:id",
-    optionalAuthMiddleware,
-    handlers.getFoodDetailById
-  )
+  .get("/api/foods/others-listing/:foodType",optionalAuthMiddleware,handlers.getFoodsList)
+  .get("/api/foods/:id",optionalAuthMiddleware,handlers.getFoodDetailById)
 
   // Orders endpoints
   .post("/api/orders", authMiddleware, handlers.createOrder)
   .get("/api/orders/:id", authMiddleware, handlers.getOrderDetailById);
+
 
 app.listen(PORT, () => {
   console.log(`server listenning on port ${PORT}`);
