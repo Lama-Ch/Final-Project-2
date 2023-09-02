@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema(
 	{
-		total: { type: Number, required: true },
-		fullname: { type: String, required: true },
-		email: { type: String, required: true },
-		address1: { type: String, required: true },
-		address2: { type: String },
+		total: { type: Number, required: true },// Total order amount (required)
+		fullname: { type: String, required: true },// Customer's full name (required)
+		email: { type: String, required: true },// Customer's email (required)
+		address1: { type: String, required: true },// Customer's address line 1 (required)
+		address2: { type: String },// Customer's address line 2 (optional)
 		orderedBy: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
