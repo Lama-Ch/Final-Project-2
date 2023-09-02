@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // Check if the user have Auth Token and valid then embed the userId in request
-// Else move on
+ // Get the Authorization header from the request
 const optionalAuthMiddleware = (req, res, next) => {
 	const authHeader = req.headers.authorization;
 
@@ -14,7 +14,7 @@ const optionalAuthMiddleware = (req, res, next) => {
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-		// Attach the user data to the request for further use
+		  // Attach the decoded user ID 
 		req.authUserId = decoded.userId;
 		next();
 	} catch (error) {
