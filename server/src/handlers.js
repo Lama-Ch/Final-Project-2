@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
 
 	// Generate the hash for password and save it instead of the raw passsword
 	bcrypt.hash(password, 10, (err, hashedPassword) => {
-		// If hashing fails, terminate and return eror
+		// If hashing fails, terminate and return error
 		if (err) {
 			return res.status(500).json({ error: err.message });
 		}
@@ -46,19 +46,19 @@ exports.signin = (req, res) => {
 			if (!user) {
 				// For security reason, don't expose that the user isn't found
 				return res
-					.status(401)
-					.json({ error: 'The provided username or password is incorrect!' });
+					.status(401).json({ error: 'The provided username or password is incorrect!' });
 			}
 			bcrypt.compare(password, user.password, (err, isPasswordValid) => {
 				if (err) {
 					return res.status(500).json({ error: err.message });
 				}
-
+//If the passwords match, generates a JSON Web Token (JWT) and sends it along with user information in the response
 				if (!isPasswordValid) {
 					return res.status(401).json({
 						error: 'The provided username or password is incorrect!',
 					});
 				}
+
 				const token = jwt.sign(
 					{ userId: user._id },
 					process.env.JWT_SECRET_KEY
@@ -78,13 +78,13 @@ exports.signin = (req, res) => {
 		});
 };
 
-
+//based on the authenticated user ID
 exports.getCurrentUser = (req, res) => {
 	const authUserId = req.authUserId;
 	User.findById(authUserId)
 	.then((user) => {
 		if (!user) {
-			// For security reason, don't expose that the user isn't found
+			// For security reason, only user isn't found
 			return res
 				.status(401)
 				.json({ error: 'This user does not exists in the system' });
@@ -103,7 +103,7 @@ exports.getCurrentUser = (req, res) => {
 	});
 };
 
-// Sign up controller
+//creation of a new food item
 exports.postNewFood = (req, res) => {
 	const { name, description, foodType, isVegetarian, price } = req.body;
 	const authUserId = req.authUserId;
@@ -128,6 +128,7 @@ exports.postNewFood = (req, res) => {
 		});
 };
 
+//a list of food items posted by the authenticated user
 exports.getMyListedFoods = (req, res) => {
 	const foodType = req.params.foodType;
 	const authUserId = req.authUserId;
@@ -146,6 +147,7 @@ exports.getMyListedFoods = (req, res) => {
 			});
 		});
 };
+//a list of food items of a given foodType, excluding those posted by the authenticated user.
 exports.getFoodsList = (req, res) => {
 	const foodType = req.params.foodType;
 	const authUserId = req.authUserId;
@@ -165,6 +167,7 @@ exports.getFoodsList = (req, res) => {
 			});
 		});
 };
+//Retrieves detailed information about a food item based on its id
 exports.getFoodDetailById = (req, res) => {
 	const foodId = req.params.id;
 	const authUserId = req.authUserId;
@@ -201,7 +204,8 @@ exports.getFoodDetailById = (req, res) => {
 };
 
 
-// Sign up controller
+//creation of a new order
+//Sends an order confirmation email
 exports.createOrder = (req, res) => {
 	const { fullname, email, food, total, address1, address2 } = req.body;
 	const authUserId = req.authUserId;
@@ -253,6 +257,7 @@ exports.createOrder = (req, res) => {
 		});
 };
 
+//Retrieves detailed information about an order based on its id
 exports.getOrderDetailById = (req, res) => {
 	const orderId = req.params.id;
 
