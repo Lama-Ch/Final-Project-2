@@ -14,7 +14,7 @@ import Order from './pages/Order';
 import ConfirmationOrder from './pages/ConfirmationOrder';
 import SignInForm from './pages/SignInForm';
 import PageNotFound from './pages/PageNotFound';
-
+import Contactus from "./pages/Contactus";
 const App = () => {
 	return (
 		<BrowserRouter>
@@ -32,6 +32,7 @@ const App = () => {
 						element={<ConfirmationOrder />}
 					/>
 					<Route path='/signin' element={<SignInForm />} />
+					<Route path='/contactus' element={<Contactus />} />
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 			</AuthProvider>
