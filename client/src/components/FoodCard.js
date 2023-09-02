@@ -15,6 +15,7 @@ const FoodCard = ({
 	hideOrderAction,
 	hideUser,
 }) => {
+	//to format the creation date and time
 	const parsedDateTime = useMemo(() => {
 		const dateTime = new Date(createdAt);
 
@@ -42,14 +43,14 @@ const FoodCard = ({
 				Posted On: <span>{parsedDateTime}</span>
 			</Label>
 			<FoodDescription>{description}</FoodDescription>
-			<FoodPrice>Price: ${price}</FoodPrice>
+			{/* <FoodPrice>Price: ${price}</FoodPrice> */}
 			<ActionButtonContainer>
 				<DetailButton to={`/foods/detail/${_id}`}>View Detail</DetailButton>
 				{isAvailable && !hideOrderAction && (
 					<OrderButton to={`/order/${_id}`}>Order Now</OrderButton>
 				)}
 			</ActionButtonContainer>
-			{!isAvailable && <SoldOutBadge>Sold Out</SoldOutBadge>}
+			{!isAvailable && <SoldOutBadge> NOT AVALABLE</SoldOutBadge>}
 		</FoodItem>
 	);
 };
@@ -139,10 +140,10 @@ const SoldOutBadge = styled.p`
 	background-color: #f35050;
 	color: #fff;
 	font-size: 10px;
-	padding: 4px 24px;
+	padding: 6px 34px;
 	font-weight: bold;
 	position: absolute;
-	top: 14px;
+	top: 24px;
 	right: -27px;
 	transform: rotate(45deg);
 	overflow: hidden;
