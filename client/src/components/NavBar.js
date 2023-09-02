@@ -36,7 +36,7 @@ const NavBar = () => {
 	return (
 		<NavbarWrapper>
 			<NavLink to='/'>
-				<LogoImage src='/assets/images/applogo.png' alt='Logo' />
+				<LogoImage src='/assets/images/logo.png' alt='Logo' />
 			</NavLink>
 			<NavigationLeft>
 				<NavItem to='/foods'>Foods List</NavItem>
