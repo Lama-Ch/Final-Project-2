@@ -31,6 +31,7 @@ const AboutPage = () => {
   );
 };
 
+
 const AboutContainer = styled.div`
   position: relative;
   padding: 100px 0;
