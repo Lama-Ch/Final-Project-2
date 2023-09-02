@@ -6,9 +6,9 @@ const handlers= require ("./src/handlers");
 const authMiddleware = require ("./src/middlewares/authMiddleware");
 const optionalAuthMiddleware = require ("./src/middlewares/optionalAuthMiddleware");
 
-// Load environment variables from .env
 dotenv.config();
 const PORT = process.env.PORT || 8000;
+
 
 // Initialize the DB connection
 require("./src/configs/dbClient")
@@ -32,7 +32,7 @@ require("./src/configs/dbClient")
   // Auth each token exists , fetch the user by id and send it to the front end
   .get('/api/auth/current-user', authMiddleware, handlers.getCurrentUser)
  
-  // My Foods CRUD operations
+  // My Food and my listing
   .post("/api/foods", authMiddleware, handlers.postNewFood)
   .get("/api/foods/my-listings/:foodType",authMiddleware,handlers.getMyListedFoods)
 
