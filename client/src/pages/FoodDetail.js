@@ -62,7 +62,7 @@ const FoodDetail = () => {
 			{foodData && (
 				<FoodItem>
 					<FoodName>
-						{foodData.name}{' '}
+						{foodData.name}
 						{foodData.isVegetarian && foodData.foodType === 'meal' && (
 							<VeganBadge>Vegan Friendly</VeganBadge>
 						)}
@@ -74,7 +74,7 @@ const FoodDetail = () => {
 						Posted On: <span>{parsedDateTime}</span>
 					</Label>
 					<FoodDescription>{foodData.description}</FoodDescription>
-					<FoodPrice>Price: ${foodData.price}</FoodPrice>
+					{/* <FoodPrice>Price: ${foodData.price}</FoodPrice> */}
 					<ActionButtonContainer>
 						{foodData.isAvailable && !foodData.isSelfPost && (
 							<OrderButton to={`/order/${foodData._id}`}>Order Now</OrderButton>
