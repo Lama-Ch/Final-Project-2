@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8000;
 // Initialize the DB connection
 require("./src/configs/dbClient")
   // Allow all origins (for development; restrict in production)
-  app.use("/uploads", express.static("uploads"));
+
   app.use(cors())
   //garenteed access
   .use(function (req, res, next) {
