@@ -59,7 +59,7 @@ const ConfirmationOrder = () => {
 							Food: <StyledSubText>{orderData.food.name}</StyledSubText>
 						</StyledText>
 						<StyledText>
-							Total Price: <StyledSubText>${orderData.total}</StyledSubText>
+							Total Delivery fee: <StyledSubText>${orderData.total}</StyledSubText>
 						</StyledText>
 						<StyledText>
 							Ordered On: <StyledSubText>{parsedDateTime}</StyledSubText>

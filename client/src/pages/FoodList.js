@@ -55,7 +55,11 @@ const FoodList = () => {
 	}, [token]);
 
 	return (
+		<BackgroundContainer>
+			{/* <Image src = "/assets/images/dashboard.jpg" alt = "Background"/> */}
+		
 		<StyledContainer>
+	
 			<StyledDiv>
 				<StyledSectionTitle>Meals</StyledSectionTitle>
 				<ListContainer>
@@ -95,27 +99,59 @@ const FoodList = () => {
 				</ListContainer>
 			</StyledDiv>
 		</StyledContainer>
+		</BackgroundContainer>
 	);
 };
 
-const StyledDiv = styled.div``;
+
+const BackgroundContainer = styled.div`
+  position: relative;
+ 
+`;
+
+
+const StyledDiv = styled.div`
+
+
+`;
+
 const StyledContainer = styled.div`
 	padding: 1rem;
+	color: white;
+	position: relative;
 `;
 const StyledSectionTitle = styled.h1`
+
 	font-size: 24px;
 	margin-bottom: 0.5rem;
 	border-bottom: 1px solid #e9e9e9;
+	color: white;
+	
 `;
 const LoadingContainer = styled.div`
 	margin: auto;
+	
 `;
-const EmptyListError = styled.p``;
+const Image = styled.img`
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: -1; /* Place the background image behind other content */
+  opacity: 0.8;
+`;
+
+const EmptyListError = styled.p`
+`;
 const ListContainer = styled.div`
+
 	display: flex;
 	gap: 16px;
 	flex-wrap: wrap;
 	padding: 1rem 0;
+	
 `;
 
 export default FoodList;

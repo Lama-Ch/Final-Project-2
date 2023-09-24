@@ -3,19 +3,34 @@
 		"name": "Classic Burger",
 		"description": "Juicy beef patty with lettuce, tomato, cheese, and special sauce.",
 		"foodType": "meal",
-		"isVegetarian": false
+		"isVegetarian": false,
+		"price": "10"
+	},
+	{
+		"name": "Butter chicken",
+		"description": "chicken breast with curry sauce",
+		"foodType": "meal",
+		"isVegetarian": true,
+		"price": "14",
+		"imageUrl":"/assets/food-images/Butter-Chicken.jpg"
+		
+		
 	},
 	{
 		"name": "Margherita Pizza",
 		"description": "Thin crust pizza with tomato sauce, mozzarella cheese, and fresh basil.",
 		"foodType": "meal",
-		"isVegetarian": true
+		"isVegetarian": true,
+		"price": "15"
+		
+		
 	},
 	{
 		"name": "Caesar Salad",
 		"description": "Crispy romaine lettuce with Caesar dressing, croutons, and parmesan cheese.",
 		"foodType": "meal",
-		"isVegetarian": true
+		"isVegetarian": true,
+		"price": "14"
 	},
 	{
 		"name": "Berry Blast Smoothie",
@@ -27,7 +42,8 @@
 		"name": "Espresso",
 		"description": "Strong and concentrated coffee shot, perfect for a quick pick-me-up.",
 		"foodType": "drink",
-		"isVegetarian": true
+		"isVegetarian": true,
+		"price": "5$"
 	},
 	{
 		"name": "Chocolate Brownie",

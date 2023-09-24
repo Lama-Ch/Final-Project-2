@@ -200,17 +200,19 @@ const SignInForm = () => {
 };
 
 const FormContainer = styled.form`
-	background-color: #fff;
+ max-width: 300px;
+ font-weight:bold;
+	background-color: #e9f9d8;
 	padding: 40px;
 	border-radius: 20px;
 	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
-	max-width: 300px;
 	margin: 0 auto;
-	height: 80vh;
+	height: 58vh;
 	display: flex;
 	flex-direction: column;
 `;
 const FormTitle = styled.h2`
+
 	font-size: 30px;
 	margin-top: 0;
 	margin-bottom: 24px;
@@ -219,10 +221,12 @@ const FormTitle = styled.h2`
 
 const FormGroup = styled.div`
 	margin-bottom: 24px;
+	
 `;
 
 const ModeToggle = styled.p`
 	font-size: 14px;
+	
 	color: #888;
 	text-align: center;
 	cursor: pointer;
@@ -230,7 +234,6 @@ const ModeToggle = styled.p`
 `;
 const Label = styled.label`
 	font-size: 12px;
-	font-weight: bold;
 	display: block;
 	margin-bottom: 4px;
 	opacity: 0.7;

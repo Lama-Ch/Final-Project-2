@@ -36,11 +36,11 @@ const NavBar = () => {
 	return (
 		<NavbarWrapper>
 			<NavLink to='/'>
-				<LogoImage src='/assets/images/logo.png' alt='Logo' />
+				<LogoImage src='/assets/images/Foodeats-logo.png' alt='Logo' />
 			</NavLink>
 			<NavigationLeft>
 				<NavItem to='/foods'>Foods List</NavItem>
-				<NavItem to='/my-listing'>My Posts</NavItem>
+				<NavItem to='/my-listing'>My Posts </NavItem>
 			</NavigationLeft>
 
 			<NavigationRight>
@@ -59,8 +59,9 @@ const NavBar = () => {
 };
 
 const NavbarWrapper = styled.div`
-	opacity: 0.8;
+	opacity: 1;
 	display: flex;
+	
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -71,6 +72,7 @@ const NavbarWrapper = styled.div`
 const NavigationBar = styled.div`
 	display: flex;
 	align-items: center;
+	
 `;
 
 const NavigationLeft = styled(NavigationBar)`
@@ -81,11 +83,13 @@ const LogoImage = styled.img`
 	width: 170px;
 	height: 60px;
 	object-fit: cover;
+	
 `;
 
 const NavigationRight = styled(NavigationBar)`
 	margin-left: auto;
 	margin-right: 20px;
+
 `;
 
 const NavItem = styled(NavLink)`

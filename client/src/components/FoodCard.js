@@ -10,10 +10,11 @@ const FoodCard = ({
 	postedBy,
 	createdAt,
 	description,
-	price,
 	isAvailable,
 	hideOrderAction,
+	price,
 	hideUser,
+	imageUrl,
 }) => {
 	//to format the creation date and time
 	const parsedDateTime = useMemo(() => {
@@ -27,7 +28,9 @@ const FoodCard = ({
 		return formattedDate;
 	}, [createdAt]);
 	return (
+
 		<FoodItem>
+			 <FoodImage src={imageUrl} alt={name} /> 
 			<FoodName>
 				<FoodTitle>{name} </FoodTitle>
 				{isVegetarian && foodType === 'meal' && (
@@ -43,7 +46,7 @@ const FoodCard = ({
 				Posted On: <span>{parsedDateTime}</span>
 			</Label>
 			<FoodDescription>{description}</FoodDescription>
-			{/* <FoodPrice>Price: ${price}</FoodPrice> */}
+			<FoodPrice>Price: ${price}</FoodPrice>
 			<ActionButtonContainer>
 				<DetailButton to={`/foods/detail/${_id}`}>View Detail</DetailButton>
 				{isAvailable && !hideOrderAction && (
@@ -54,6 +57,16 @@ const FoodCard = ({
 		</FoodItem>
 	);
 };
+const BackgroundImage = styled.div`
+  background-size: cover;
+  background-position: center;
+  height: 150px; /* Adjust the height as needed */
+`;
+
+const FoodImage = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
 
 const FoodItem = styled.div`
 	padding: 16px;
@@ -61,10 +74,11 @@ const FoodItem = styled.div`
 	border-radius: 8px;
 	position: relative;
 	overflow: hidden;
-	max-width: 250px;
+	max-width: 230px;
 `;
 
 const FoodName = styled.h3`
+color:black;
 	margin-top: 0;
 	margin-bottom: 10px;
 	font-size: 16px;

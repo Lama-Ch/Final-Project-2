@@ -1,56 +1,65 @@
 .contact-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+  background-color: #e9f9d8; /* Add a light background color */
+  border-radius: 10px; /* Add rounded corners */
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #333; /* Adjust the text color */
+}
+
+p {
+  font-size: 1rem;
   
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-  
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  label {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    padding: 8px;
-    font-size: 1rem;
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 5px;
-  }
-  
-  .submit-button {
-    border: none;
-	padding: 8px 20px;
-	border-radius: 5px;
-    background-color: #007BFF;
-    color: #fff;
-    font-size: 0.9rem; 
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
+  margin-bottom: 20px;
+  color: #666; /* Adjust the text color */
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px; /* Adjust the max width of the form container */
+  margin: 0 auto; /* Center the form container */
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333; 
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+  width: 100%; 
+}
+
+.submit-button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 1rem; /* Increase the font size */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth hover transition */
+}
+
+.submit-button:hover {
+  background-color: #595a5c;
+}

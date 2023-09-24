@@ -128,6 +128,7 @@ exports.postNewFood = (req, res) => {
 		});
 };
 
+
 //a list of food items posted by the authenticated user
 exports.getMyListedFoods = (req, res) => {
 	const foodType = req.params.foodType;
@@ -156,6 +157,7 @@ exports.getFoodsList = (req, res) => {
 		foodType: foodType,
 		postedBy: { $ne: authUserId },
 	})
+	.select('name description foodType isVegetarian price imageUrl') // Select the fields to include in the response
 		.populate({ path: 'postedBy', select: ['username', 'fullname', 'email'] })
 		.then((result) => {
 			return res.status(201).json({ result });
@@ -173,6 +175,7 @@ exports.getFoodDetailById = (req, res) => {
 	const authUserId = req.authUserId;
 
 	Food.findById(foodId)
+	.select('name description foodType isVegetarian price imageUrl') // Select the fields to include in the response
 		.populate({ path: 'postedBy', select: ['username', 'fullname', 'email'] })
 		.then((result) => {
 			if (!result) {

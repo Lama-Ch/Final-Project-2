@@ -45,7 +45,8 @@ const AddNewFood = () => {
 			validationError = 'Food name is mandatory.';
 		} else if (!description) {
 			validationError = 'Food short description is mandatory.';
-		} else if (!price) {
+		} 
+		else if (!price) {
 			validationError = 'Price is mandatory.';
 		}
 		return validationError;
@@ -118,13 +119,13 @@ const AddNewFood = () => {
 						/>
 					</FormGroup>
 					<FormGroup>
-						<Label htmlFor='price'>Price</Label>
+						<Label htmlFor='price'> DELIVERY FEE</Label>
 						<Input
 							type='number'
 							id='price'
 							min={1}
 							value={price}
-							placeholder='Enter price'
+							placeholder='delivery fee'
 							onChange={onFieldChange(setPrice)}
 						/>
 					</FormGroup>

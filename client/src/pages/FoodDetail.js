@@ -6,236 +6,247 @@ import { useAuth } from '../context/AuthContext';
 import { foodByIdService } from '../apis/foodsApi';
 
 const FoodDetail = () => {
-	const { token } = useAuth();
-	const navigate = useNavigate();
-	const { foodId } = useParams();
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const { foodId } = useParams();
 
-	const [foodData, setFoodData] = useState(null);
-	const [foodDataLoading, setFoodDataLoading] = useState(true);
+  const [foodData, setFoodData] = useState(null);
+  const [foodDataLoading, setFoodDataLoading] = useState(true);
 
-	const onGoBack = () => {
-		navigate(-1);
-	};
+  const onGoBack = () => {
+    navigate(-1);
+  };
 
-	const parsedDateTime = useMemo(() => {
-		if (!foodData) {
-			return null;
-		}
-		const dateTime = new Date(foodData.createdAt);
+  const parsedDateTime = useMemo(() => {
+    if (!foodData) {
+      return null;
+    }
+    const dateTime = new Date(foodData.createdAt);
 
-		const formattedDate = dateTime.toLocaleString('en-CA', {
-			dateStyle: 'medium',
-			timeStyle: 'short',
-		});
+    const formattedDate = dateTime.toLocaleString('en-CA', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
 
-		return formattedDate;
-	}, [foodData]);
+    return formattedDate;
+  }, [foodData]);
 
-	const loadFoodData = () => {
-		foodByIdService(foodId, token)
-			.then((result) => {
-				if (result.ok) {
-					result
-						.json()
-						.then((data) => {
-							setFoodData(data.result);
-						})
-						.catch();
-				}
-			})
-			.catch()
-			.finally(() => {
-				setFoodDataLoading(false);
-			});
-	};
+  const loadFoodData = () => {
+    foodByIdService(foodId, token)
+      .then((result) => {
+        if (result.ok) {
+          result
+            .json()
+            .then((data) => {
+              setFoodData(data.result);
+            })
+            .catch();
+        }
+      })
+      .catch()
+      .finally(() => {
+        setFoodDataLoading(false);
+      });
+  };
 
-	useEffect(() => {
-		loadFoodData();
-	}, []);
-
-	return (
-		<StyledContainer>
-			<SectionHeader>
-				<HeaderBackLink onClick={onGoBack}>Go Back</HeaderBackLink>
-				<StyledSectionTitle>Food Detail</StyledSectionTitle>
-			</SectionHeader>
-			{foodData && (
-				<FoodItem>
-					<FoodName>
-						{foodData.name}
-						{foodData.isVegetarian && foodData.foodType === 'meal' && (
-							<VeganBadge>Vegan Friendly</VeganBadge>
-						)}
-					</FoodName>
-					<Label>
-						Posted By: <span>{foodData.postedBy?.fullname}</span>
-					</Label>
-					<Label>
-						Posted On: <span>{parsedDateTime}</span>
-					</Label>
-					<FoodDescription>{foodData.description}</FoodDescription>
-					{/* <FoodPrice>Price: ${foodData.price}</FoodPrice> */}
-					<ActionButtonContainer>
-						{foodData.isAvailable && !foodData.isSelfPost && (
-							<OrderButton to={`/order/${foodData._id}`}>Order Now</OrderButton>
-						)}
-					</ActionButtonContainer>
-					{!foodData.isAvailable && <SoldOutBadge>Sold Out</SoldOutBadge>}
-				</FoodItem>
-			)}
-
-			{(foodDataLoading || !foodData) && (
-				<LoadingContainer>
-					{foodDataLoading && <LoadingSpinner />}
-					{!foodDataLoading && !foodData && (
-						<EmptyErrorContainer>
-							<EmptyErrorTitle>Oops!</EmptyErrorTitle>
-							<EmptyError>
-								Could not found any record with this data.
-							</EmptyError>
-							<ErrorActionsContainer>
-								<ErrorBackActions onClick={onGoBack}>Go Back</ErrorBackActions>
-								<ErrorRetryActions onClick={loadFoodData}>
-									Retry
-								</ErrorRetryActions>
-							</ErrorActionsContainer>
-						</EmptyErrorContainer>
-					)}
-				</LoadingContainer>
-			)}
-		</StyledContainer>
-	);
+  useEffect(() => {
+    loadFoodData();
+  }, []);
+ 
+  return (
+    <StyledContainer>
+        <Image src = "/assets/images/fresh-cinnamon-roll-detail-shot.jpeg" alt = "Background"/>
+      <HeaderBackLink onClick={onGoBack}>← Back</HeaderBackLink>
+      {foodDataLoading ? (
+        <LoadingSpinner />
+      ) : foodData ? (
+        <FoodItem>
+          {/* <FoodImage src={foodData.image} alt={foodData.name} /> */}
+          <FoodName>
+            {foodData.name}
+            {foodData.isVegetarian && foodData.foodType === 'meal' && (
+              <VeganBadge>Vegan Friendly</VeganBadge>
+            )}
+          </FoodName>
+          <Label>Posted By: {foodData.postedBy?.fullname}</Label>
+          <Label>Posted On: {parsedDateTime}</Label>
+          <FoodDescription>{foodData.description}</FoodDescription>
+          <OrderButtonContainer>
+            <FoodPrice>Price: ${foodData.price}</FoodPrice>
+            {foodData.isAvailable ? (
+              <OrderButton to={`/order/${foodData._id}`}>Order Now</OrderButton>
+            ) : (
+              <SoldOutBadge>Sold Out</SoldOutBadge>
+            )}
+          </OrderButtonContainer>
+          
+        </FoodItem>
+      ) : (
+        <EmptyErrorContainer>
+          <EmptyErrorTitle>Oops!</EmptyErrorTitle>
+          <EmptyError>Could not find any record with this data.</EmptyError>
+          <ErrorActionsContainer>
+            <ErrorBackActions onClick={onGoBack}>Go Back</ErrorBackActions>
+            <ErrorRetryActions onClick={loadFoodData}>Retry</ErrorRetryActions>
+          </ErrorActionsContainer>
+        </EmptyErrorContainer>
+      )}
+   
+    </StyledContainer>
+  );
 };
 
 const StyledContainer = styled.div`
-	padding: 1rem;
-`;
-const SectionHeader = styled.div`
-	border-bottom: 1px solid #e9e9e9;
-	margin-top: 1rem;
-	margin-bottom: 0.5rem;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-`;
-const StyledSectionTitle = styled.h1`
-	font-size: 24px;
-	margin: 0;
-`;
-const HeaderBackLink = styled.button`
-	background-color: transparent;
-	border: 0;
-	color: #4caf50;
-	font-size: 14px;
-	font-weight: bold;
-	cursor: pointer;
-`;
-const LoadingContainer = styled.div`
-	margin: auto;
+  position: relative; /* Required for the absolute positioning of the background image */
+  padding: 2rem;
+  max-width: 500px;
 `;
 
-const EmptyErrorContainer = styled.div``;
-const EmptyErrorTitle = styled.h2`
-	font-size: 3rem;
-	color: #e74c3c;
-	margin-bottom: 10px;
-	text-align: center;
+const HeaderBackLink = styled.button`
+  background-color: transparent;
+  border: 0;
+  color: #4caf50;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
 `;
-const EmptyError = styled.p``;
-const ErrorActionsContainer = styled.div`
-	text-align: center;
-`;
-const ErrorBackActions = styled.button`
-	background-color: transparent;
-	color: #4caf50;
-	font-size: 14px;
-	font-weight: bold;
-	border: 1px solid #4caf50;
-	border-radius: 3px;
-	padding: 4px 10px;
-	cursor: pointer;
-`;
-const ErrorRetryActions = styled.button`
-	font-size: 14px;
-	font-weight: bold;
-	background-color: #4caf50;
-	padding: 4px 30px;
-	margin-left: 5px;
-	border: 1px solid #4caf50;
-	color: #fff;
-	cursor: pointer;
+const Image = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 230%;
+  height: 200%;
+  object-fit: cover;
+  z-index: -1; /* Place the background image behind other content */
+  opacity: 0.8;
 `;
 
 const FoodItem = styled.div`
-	padding: 16px;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	position: relative;
-	overflow: hidden;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  position: relative;
+  overflow: hidden;
 `;
 
-const FoodName = styled.h3`
-	margin-top: 0;
-	margin-bottom: 10px;
-	font-size: 16px;
-	display: flex;
-	align-items: center;
-	gap: 4px;
+const FoodImage = styled.img`
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+`;
+
+const FoodName = styled.h2`
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 const VeganBadge = styled.span`
-	font-size: 10px;
-	padding: 4px 8px;
-	border-radius: 10px;
-	line-height: 1;
-	border: 1px solid #4caf50;
-	color: #4caf50;
-	white-space: nowrap;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  line-height: 1;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+  white-space: nowrap;
 `;
 
 const FoodDescription = styled.p`
-	margin: 8px 0;
-	font-size: 14px;
+  margin: 8px 0;
+  font-size: 16px;
 `;
 
 const FoodPrice = styled.p`
-	margin: 4px 0;
+  margin: 4px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #4caf50;
 `;
 
 const Label = styled.p`
-	font-size: 12px;
-	color: #595959;
-	margin: 4px 0;
+  font-size: 14px;
+  color: #595959;
+  margin: 4px 5px;
 `;
 
-const ActionButtonContainer = styled.div`
-	margin-top: 10px;
-	font-size: 12px;
-	font-weight: bold;
-	text-transform: uppercase;
+const OrderButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between; /* Space out the items horizontally */
+  align-items: center; /* Align items vertically */
+  margin-top: 20px; /* Add some top margin for spacing */
 `;
 
 const OrderButton = styled(Link)`
-	background-color: #4caf50;
-	border: 1px solid #4caf50;
-	padding: 4px 8px;
-	color: #fff;
-	cursor: pointer;
-	text-decoration: none;
+  background-color: #4caf50;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 const SoldOutBadge = styled.p`
-	margin: 0;
-	background-color: #f35050;
-	color: #fff;
-	font-size: 10px;
-	padding: 4px 24px;
-	font-weight: bold;
-	position: absolute;
-	top: 14px;
-	right: -27px;
-	transform: rotate(45deg);
-	overflow: hidden;
+  margin: 0;
+  background-color: #f35050;
+  color: #fff;
+  font-size: 14px;
+  padding: 4px 12px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: -18px;
+  transform: rotate(45deg);
+`;
+
+const EmptyErrorContainer = styled.div`
+  text-align: center;
+`;
+
+const EmptyErrorTitle = styled.h2`
+  font-size: 3rem;
+  color: #e74c3c;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
+const EmptyError = styled.p`
+  font-size: 18px;
+  margin: 10px 0;
+`;
+
+const ErrorActionsContainer = styled.div`
+  text-align: center;
+  margin-top: 20px;
+`;
+
+const ErrorBackActions = styled.button`
+  background-color: transparent;
+  color: #4caf50;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #4caf50;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-right: 10px;
+  cursor: pointer;
+`;
+
+const ErrorRetryActions = styled.button`
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4caf50;
+  padding: 8px 20px;
+  border: 1px solid #4caf50;
+  color: #fff;
+  cursor: pointer;
 `;
 
 export default FoodDetail;

@@ -165,11 +165,11 @@ const Order = () => {
 							<SummarySectionTitle>Order Summary</SummarySectionTitle>
 							<OrderItem>
 								<StyledText>{foodData.name}</StyledText>
-								<StyledText>${foodData.price}</StyledText>
+								{/* <StyledText>${foodData.price}</StyledText> */}
 							</OrderItem>
 							<Seperator />
 							<OrderItem>
-								<StyledText>Total</StyledText>
+								<StyledText>Delivery fee</StyledText>
 								<StyledText>${foodData.price}</StyledText>
 							</OrderItem>
 							<OrderButton onClick={onSubmitForm}>
