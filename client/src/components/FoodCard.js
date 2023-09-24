@@ -14,7 +14,7 @@ const FoodCard = ({
 	hideOrderAction,
 	price,
 	hideUser,
-	imageUrl,
+	
 }) => {
 	//to format the creation date and time
 	const parsedDateTime = useMemo(() => {
@@ -30,7 +30,7 @@ const FoodCard = ({
 	return (
 
 		<FoodItem>
-			 <FoodImage src={imageUrl} alt={name} /> 
+		
 			<FoodName>
 				<FoodTitle>{name} </FoodTitle>
 				{isVegetarian && foodType === 'meal' && (
