@@ -79,6 +79,7 @@ const FoodList = () => {
 					)}
 				</ListContainer>
 			</StyledDiv>
+			
 			<StyledDiv>
 				<StyledSectionTitle>Drinks</StyledSectionTitle>
 				<ListContainer>
