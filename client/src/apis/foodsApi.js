@@ -51,13 +51,12 @@ export const foodByIdService = (foodId, authToken) => {
 export const addFoodsService = (data, authToken) => {
 
 	const headers = {
-		'Content-Type': 'application/json',
 		Authorization: `Bearer ${authToken}`,
 	};
 	// Send a POST request to the API endpoint to add a new food item
 	return fetch(`${API_URL}/foods/`, {
 		method: 'POST',
 		headers: headers,
-		body: JSON.stringify(data),
+		body: data,
 	});
 };
