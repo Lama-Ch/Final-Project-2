@@ -107,6 +107,10 @@ exports.getCurrentUser = (req, res) => {
 exports.postNewFood = (req, res) => {
 	const { name, description, foodType, isVegetarian, price } = req.body;
 	const authUserId = req.authUserId;
+	console.log('Image File', req.file)
+	const uploadedImagePath = req.file.path;
+
+
 	Food.create({
 		name,
 		description,
@@ -114,6 +118,7 @@ exports.postNewFood = (req, res) => {
 		isVegetarian,
 		price,
 		postedBy: authUserId,
+		image: uploadedImagePath || ''
 	})
 		.then((result) => {
 			return res
