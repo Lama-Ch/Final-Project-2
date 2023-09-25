@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import UnauthorizedError from '../components/UnauthorizedError';
@@ -22,10 +22,14 @@ const AddNewFood = () => {
 	const [price, setPrice] = useState('');
 	const [foodType, setFoodType] = useState(selectedFoodType || 'meal');
 	const [isVegetarian, setIsVegetarian] = useState(false);
+	const [foodImageFile, setFoodImageFile] = useState(null);
+	const [imagePreview, setImagePreview] = useState(null);
 
 	const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [apiSuccessMessage, setApiSuccessMessage] = useState('');
+
+	const fileInputRef = useRef();
 
 	const onGoBack = () => {
 		navigate(-1);
@@ -38,6 +42,28 @@ const AddNewFood = () => {
 	const onCheckBoxChange = (event) => {
 		setIsVegetarian(event.target.checked);
 	};
+
+	// Since the file input is hidden, trigger the click manually when the area is clicked
+	const onFileInputClicked = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
+		}
+	}
+
+	const handleFileChange = (e) => {
+		const file = e.target.files[0];
+		if (file) {
+		  setFoodImageFile(file);
+		  const imageDataUrl = URL.createObjectURL(file);
+		  setImagePreview(imageDataUrl);
+		}
+	  };
+
+	  const onRemoveSelectedFile = () => {
+		setFoodImageFile(null);
+		URL.revokeObjectURL(imagePreview)
+		setImagePreview(null)
+	  }
 
 	const validateFields = () => {
 		let validationError = null;
@@ -54,7 +80,18 @@ const AddNewFood = () => {
 
 	const addFood = () => {
 		const foodData = { name, description, price, isVegetarian, foodType };
-		addFoodsService(foodData, token)
+		const formData = new FormData();
+		formData.append('name', name);
+		formData.append('description', description);
+		formData.append('price', price);
+		formData.append('isVegetarian', isVegetarian);
+		formData.append('foodType', foodType);
+
+		if (foodImageFile) {
+			formData.append('foodImage', foodImageFile);
+		}
+
+		addFoodsService(formData, token)
 			.then((result) => {
 				if (result.ok) {
 					result
@@ -65,6 +102,8 @@ const AddNewFood = () => {
 							setName('');
 							setDescription('');
 							setPrice('');
+							setFoodImageFile(null);
+							setImagePreview(null)
 						})
 						.catch((err) => {
 							console.error('FAILED', err);
@@ -175,6 +214,18 @@ const AddNewFood = () => {
 							onChange={onFieldChange(setDescription)}
 						/>
 					</FormGroup>
+					{/* Display File Input + Preview */}
+					<FilerDropContainer onClick={onFileInputClicked}>
+						<input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} />
+						<p>Select image file</p>
+					</FilerDropContainer>
+
+					{imagePreview &&(
+						<PreviewImageContainer>
+							<PreviewImage src={imagePreview} />
+							<FileDiscardButton onClick={onRemoveSelectedFile}>X</FileDiscardButton>
+						</PreviewImageContainer>
+					)}
 					{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 					{apiSuccessMessage && <FormSuccess>{apiSuccessMessage}</FormSuccess>}
 					<SubmitButton
@@ -276,6 +327,51 @@ const TextArea = styled.textarea`
 		opacity: 0.7;
 	}
 `;
+
+const FilerDropContainer = styled.div`
+border: 1px dashed #717171;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 24px 0;
+	cursor: pointer;
+	input {
+		width: 0;
+		height: 0;
+	}
+	p {
+		margin: 0;
+		font-size: 14px;
+		user-select: none;
+	}
+`
+
+const PreviewImageContainer = styled.div`
+position: relative;
+margin-bottom: 24px;
+`
+
+const PreviewImage = styled.img`
+width: 100%;
+height: auto;
+`
+
+const FileDiscardButton = styled.button`
+position: absolute;
+top: 5px;
+right: 5px;
+background-color: #ee1717;
+color: #fff;
+width: 30px;
+height: 30px;
+border: 0;
+border-radius: 100%;
+cursor: pointer;
+
+`
 
 const SubmitButton = styled.button`
 	border: none;
