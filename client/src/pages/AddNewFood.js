@@ -192,6 +192,8 @@ const AddNewFood = () => {
 
 const StyledContainer = styled.div`
 	padding: 1rem;
+	max-width: 500px;
+  margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
