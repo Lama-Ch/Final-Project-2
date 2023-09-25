@@ -54,19 +54,21 @@ const Wrapper = styled.div`
   background-position: center;
   color: #fff;
   text-align: center;
-  margin-top: 0px; /* Adjust the margin-top to move the logo higher */
+  padding: 20px; /* Add some padding to the top and bottom */
 `;
 
 const StyledSubtitle = styled.p`
 	color: green;
-	font-size: 2rem;
-	margin-bottom: 4rem;
+	font-size: 1.5rem; /* Adjust the font size for smaller screens */
+  margin-bottom: 2rem; /* Reduce the margin for smaller screens */
 	text-shadow: 1px 1px 2px rgba(16, 16, 16, 0.6);
 `;
 const LinksContainer = styled.div`
   display: flex;
-  align-items: center; /* Center horizontally */
-  gap: 10px; /* Adjust the gap between the links */
+  flex-direction: column; /* Stack the links on smaller screens */
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
 `;
 const StyledLink = styled(Link)`
 	border: none;
