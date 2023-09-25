@@ -127,12 +127,13 @@ const StyledContainer = styled.div`
 `;
 
 const SectionHeader = styled.div`
-	border-bottom: 1px solid #e9e9e9;
-	margin-top: 1rem;
-	margin-bottom: 0.5rem;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+ border-bottom: 1px solid #e9e9e9;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 `;
 const StyledSectionTitle = styled.h1`
 	font-size: 24px;
@@ -146,7 +147,9 @@ const AddFoodLink = styled(Link)`
 const LoadingContainer = styled.div`
 	margin: auto;
 `;
-const EmptyListError = styled.p``;
+const EmptyListError = styled.p`
+text-align: center;
+`;
 const ListContainer = styled.div`
 	display: flex;
 	gap: 16px;
