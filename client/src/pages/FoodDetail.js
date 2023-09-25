@@ -100,6 +100,10 @@ const StyledContainer = styled.div`
   position: relative; /* Required for the absolute positioning of the background image */
   padding: 2rem;
   max-width: 500px;
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    padding: 1rem;
+  }
 `;
 
 const HeaderBackLink = styled.button`
