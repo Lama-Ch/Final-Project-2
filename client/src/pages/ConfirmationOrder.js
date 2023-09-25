@@ -129,9 +129,13 @@ const Description = styled(StyledText)`
 `;
 
 const OrderDetails = styled.div`
-	text-align: center;
-	font-size: 16px;
-	max-width: 260px;
+	 text-align: center;
+  font-size: 16px;
+  max-width: 260px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 const BackButton = styled(Link)`
 	font-size: 16px;
@@ -146,7 +150,9 @@ const BackButton = styled(Link)`
 const LoadingContainer = styled.div`
 	margin: auto;
 `;
-const EmptyErrorContainer = styled.div``;
+const EmptyErrorContainer = styled.div`
+ text-align: center;
+ `;
 const EmptyErrorTitle = styled.h2`
 	font-size: 3rem;
 	color: #e74c3c;
