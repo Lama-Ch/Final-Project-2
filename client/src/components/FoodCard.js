@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { SERVER_URL } from '../utils/constants';
 
 const FoodCard = ({
 	_id,
 	name,
+	image,
 	isVegetarian,
 	foodType,
 	postedBy,
@@ -30,7 +32,7 @@ const FoodCard = ({
 	return (
 
 		<FoodItem>
-		
+			{image &&<FoodImage src={`${SERVER_URL}/${image}`} />}
 			<FoodName>
 				<FoodTitle>{name} </FoodTitle>
 				{isVegetarian && foodType === 'meal' && (
