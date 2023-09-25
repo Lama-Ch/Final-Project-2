@@ -120,6 +120,10 @@ const StyledContainer = styled.div`
 	padding: 1rem;
 	color: white;
 	position: relative;
+	@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    padding: 0.5rem; /* Example: Reduce padding for smaller screens */
+  }
 `;
 const StyledSectionTitle = styled.h1`
 
@@ -127,7 +131,10 @@ const StyledSectionTitle = styled.h1`
 	margin-bottom: 0.5rem;
 	border-bottom: 1px solid #e9e9e9;
 	color: white;
-	
+	@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    font-size: 20px; /* Example: Reduce font size for smaller screens */
+  }
 `;
 const LoadingContainer = styled.div`
 	margin: auto;
@@ -152,6 +159,10 @@ const ListContainer = styled.div`
 	gap: 16px;
 	flex-wrap: wrap;
 	padding: 1rem 0;
+	@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    gap: 10px; /* Example: Reduce gap for smaller screens */
+  }
 	
 `;
 
