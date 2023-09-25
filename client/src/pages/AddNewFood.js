@@ -158,7 +158,7 @@ const AddNewFood = () => {
 						/>
 					</FormGroup>
 					<FormGroup>
-						<Label htmlFor='price'> DELIVERY FEE</Label>
+						<Label htmlFor='price'> PRICE</Label>
 						<Input
 							type='number'
 							id='price'
