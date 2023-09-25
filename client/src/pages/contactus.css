@@ -8,6 +8,15 @@
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 1rem;
+  }
+  /* Adjust other styles as needed for smaller screens */
+}
+
+
 h1 {
   font-size: 30px;
   margin-bottom: 20px;
