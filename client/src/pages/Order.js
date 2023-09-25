@@ -149,13 +149,13 @@ const Order = () => {
 							/>
 							<Input
 								name='address1'
-								placeholder='Line 1 Address'
+								placeholder=' Address'
 								value={address1}
 								onChange={onFieldChange(setAddress1)}
 							/>
 							<Input
 								name='address2'
-								placeholder='Line 2 Address'
+								placeholder='Apartement number'
 								value={address2}
 								onChange={onFieldChange(setAddress2)}
 							/>
@@ -169,7 +169,7 @@ const Order = () => {
 							</OrderItem>
 							<Seperator />
 							<OrderItem>
-								<StyledText>Delivery fee</StyledText>
+								<StyledText>TOTAL</StyledText>
 								<StyledText>${foodData.price}</StyledText>
 							</OrderItem>
 							<OrderButton onClick={onSubmitForm}>
@@ -208,6 +208,7 @@ const StyledText = styled.p`
 const StyledContainer = styled.div`
 	padding: 1rem;
 	display: flex;
+	flex-direction: column;
 	gap: 16px;
 	flex-wrap: wrap;
 `;
@@ -217,8 +218,8 @@ const FormContainer = styled.div`
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: flex-start;
-	gap: 8px;
-	width: calc(100% - 300px);
+	gap: 10px;
+	width: calc(75% - 500px);
 `;
 const PageHeader = styled.div`
 	width: 100%;
@@ -232,7 +233,7 @@ const OrderSummary = styled.div`
 	padding: 16px;
 	border: 1px solid #ccc;
 	border-radius: 8px;
-	width: 250px;
+	width: 300px;
 	height: fit-content;
 `;
 
@@ -257,11 +258,12 @@ const OrderButton = styled.button`
 	color: #fff;
 	font-size: 14px;
 	font-weight: bold;
-	width: 100%;
+	width: 50%;
 	padding: 8px 8px;
 	text-transform: uppercase;
 	border-radius: 4px;
 	cursor: pointer;
+	
 `;
 const Seperator = styled.div`
 	border-bottom: 1px solid #e9e9e9;
@@ -278,7 +280,7 @@ const Input = styled.input`
 	}
 `;
 const SmallInput = styled(Input)`
-	width: calc(50% - 28px);
+	width: calc(100% - 28px);
 `;
 
 const LoadingContainer = styled.div`
